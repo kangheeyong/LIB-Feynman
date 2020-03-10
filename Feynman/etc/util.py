@@ -18,22 +18,22 @@ def get_logger(name=__file__):
     return logger
 
 
-class Option(dict):
+class Config(dict):
     def __init__(self, *args, **kwargs):
-        args = [arg if isinstance(arg, dict) else json.loads(open(arg).read())
+        args = [arg if isinstance(arg, dict) else json.loads(arg)
                 for arg in args]
-        super(Option, self).__init__(*args, **kwargs)
+        super(Config, self).__init__(*args, **kwargs)
         for arg in args:
             if isinstance(arg, dict):
                 for k, v in arg.items():
                     if isinstance(v, dict):
-                        self[k] = Option(v)
+                        self[k] = Config(v)
                     else:
                         self[k] = v
         if kwargs:
             for k, v in kwargs.items():
                 if isinstance(v, dict):
-                    self[k] = Option(v)
+                    self[k] = Config(v)
                 else:
                     self[k] = v
 
@@ -44,12 +44,12 @@ class Option(dict):
         self.__setitem__(key, value)
 
     def __setitem__(self, key, value):
-        super(Option, self).__setitem__(key, value)
+        super(Config, self).__setitem__(key, value)
         self.__dict__.update({key: value})
 
     def __delattr__(self, item):
         self.__delitem__(item)
 
     def __delitem__(self, key):
-        super(Option, self).__delitem__(key)
+        super(Config, self).__delitem__(key)
         del self.__dict__[key]

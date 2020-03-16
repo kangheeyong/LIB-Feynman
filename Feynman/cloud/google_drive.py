@@ -2,8 +2,9 @@ import io
 import os
 import time
 import json
-import socket
+import errno
 from collections import defaultdict
+from socket import error as SocketError
 
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
@@ -11,9 +12,6 @@ from googleapiclient.http import MediaIoBaseDownload
 
 from Feynman.etc.util import get_logger
 from Feynman.serialize import Pickle_serializer
-
-
-# socket.setdefaulttimeout(300)
 
 
 class Google_drive():
@@ -27,8 +25,10 @@ class Google_drive():
                 self.service = build('drive', 'v3', credentials=self.creds)
                 self.logger.info('Google drive access...')
                 break
-            except socket.timeout:
-                self.logger.info('Time-out... try restart...')
+            except SocketError as e:
+                if e.errno != errno.ECONNRESET:
+                    self.logger.info('Connection reset by peer...')
+                    time.sleep(60)
 
     def _get_list(self):
         result = self.service.files().list(fields='*').execute()['files']
@@ -77,8 +77,10 @@ class Google_drive():
             try:
                 self._upload(folder, files, max_data)
                 break
-            except socket.timeout:
-                self.logger.info('Time-out... try restart...')
+            except SocketError as e:
+                if e.errno != errno.ECONNRESET:
+                    self.logger.info('Connection reset by peer...')
+                    time.sleep(60)
 
     def _read_info(self, path):
         info_path = os.path.join(path, 'info')
@@ -133,5 +135,7 @@ class Google_drive():
             try:
                 self._download(folder, path)
                 break
-            except socket.timeout:
-                self.logger.info('Time-out... try restart...')
+            except SocketError as e:
+                if e.errno != errno.ECONNRESET:
+                    self.logger.info('Connection reset by peer...')
+                    time.sleep(60)

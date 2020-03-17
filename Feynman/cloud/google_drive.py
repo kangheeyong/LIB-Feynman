@@ -15,10 +15,10 @@ from ..serialize import Pickle_serializer
 
 
 class Google_drive():
-    def __init__(self):
+    def __init__(self, path='token.pickle'):
         self.logger = get_logger()
         self._ps = Pickle_serializer()
-        self.creds = self._ps.load('token.pickle')
+        self.creds = self._ps.load(path)
 
         while True:
             try:

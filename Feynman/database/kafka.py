@@ -41,7 +41,7 @@ class Kafka_queue_producer():
         self.logger = get_logger('Kafka_consumer')
 
     def push(self, data):
-        data = list(data) if isinstance(data, dict) else data
+        data = [data] if isinstance(data, dict) else data
         for d in data:
             self._kp.send(self.topic, d)
         self.logger.info('send {} data...'.format(len(data)))

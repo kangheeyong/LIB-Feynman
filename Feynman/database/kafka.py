@@ -3,15 +3,15 @@ from collections import defaultdict
 
 from kafka import KafkaProducer, KafkaConsumer
 
-from ..etc.util import get_logger, Config
+from ..etc.util import get_logger
 
 
 class Kafka_queue_consumer():
-    def __init__(self, path):
-        self._opt = Config(open(path, 'r').read())
-        self._kc = KafkaConsumer(self._opt.kafka_test.topic,
-                                 bootstrap_servers=self._opt.kafka_test.bootstrap_servers,
-                                 group_id=self._opt.kafka_test.group_id,
+    def __init__(self, opt):
+        self._opt = opt
+        self._kc = KafkaConsumer(self._opt.topic,
+                                 bootstrap_servers=self._opt.bootstrap_servers,
+                                 group_id=self._opt.group_id,
                                  auto_offset_reset='earliest',
                                  enable_auto_commit=True,
                                  consumer_timeout_ms=5000)
@@ -33,15 +33,15 @@ class Kafka_queue_consumer():
 
 
 class Kafka_queue_producer():
-    def __init__(self, path):
-        self._opt = Config(open(path, 'r').read())
-        self.topic = self._opt.kafka_test.topic
-        self._kp = KafkaProducer(bootstrap_servers=self._opt.kafka_test.bootstrap_servers,
+    def __init__(self, opt):
+        self._opt = opt
+        self._topic = self._opt.topic
+        self._kp = KafkaProducer(bootstrap_servers=self._opt.bootstrap_servers,
                                  value_serializer=lambda x: json.dumps(x).encode('utf-8'))
         self.logger = get_logger('Kafka_consumer')
 
     def push(self, data):
         data = [data] if isinstance(data, dict) else data
         for d in data:
-            self._kp.send(self.topic, d)
+            self._kp.send(self._topic, d)
         self.logger.info('send {} data...'.format(len(data)))

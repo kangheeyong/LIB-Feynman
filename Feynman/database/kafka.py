@@ -12,7 +12,7 @@ class Kafka_queue_consumer():
         self._kc = KafkaConsumer(self._opt.topic,
                                  bootstrap_servers=self._opt.bootstrap_servers,
                                  group_id=self._opt.group_id,
-                                 auto_offset_reset='earliest',
+                                 auto_offset_reset=self._opt.auto_offset_reset,
                                  enable_auto_commit=True,
                                  consumer_timeout_ms=5000)
         self.logger = get_logger('Kafka_consumer')

@@ -10,6 +10,7 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from googleapiclient.http import MediaIoBaseDownload
 
+from ..etc import Try_sync_access
 from ..etc.util import get_logger
 from ..serialize import Pickle_serializer
 
@@ -60,7 +61,8 @@ class Google_drive():
                     'parents': [folder_id]}
             media_body = MediaFileUpload(path,
                                          resumable=True)
-            r = self.service.files().create(body=body, media_body=media_body).execute()
+            with Try_sync_access(path+'.lock'):
+                r = self.service.files().create(body=body, media_body=media_body).execute()
             time.sleep(.1)
             self.logger.info('Upload new filee : {}({})/{}({})'.format(folder, folder_id, name, r['id']))
 
@@ -116,18 +118,19 @@ class Google_drive():
             name_list = [dic for dic in rlist if name in dic['name']]
             file_id = max(name_list, key=lambda x: x['createdTime'])['id']
 
-            if info[name] == file_id:
-                self.logger.info('{}({}) is the latest version...'.format(name, file_id))
-                continue
+            with Try_sync_access(os.path.join(path, name)+'.lock'):
+                if info[name] == file_id:
+                    self.logger.info('{}({}) is the latest version...'.format(name, file_id))
+                    continue
 
-            info[name] = file_id
-            request = self.service.files().get_media(fileId=file_id)
-            fh = io.FileIO(os.path.join(path, name), 'wb')
-            downloader = MediaIoBaseDownload(fh, request)
-            done = False
-            while done is False:
-                status, done = downloader.next_chunk()
-            self.logger.info('Download file : {}({})'.format(os.path.join(path, name), file_id))
+                info[name] = file_id
+                request = self.service.files().get_media(fileId=file_id)
+                fh = io.FileIO(os.path.join(path, name), 'wb')
+                downloader = MediaIoBaseDownload(fh, request)
+                done = False
+                while done is False:
+                    status, done = downloader.next_chunk()
+                self.logger.info('Download file : {}({})'.format(os.path.join(path, name), file_id))
         self._write_info(info, path)
 
     def download(self, folder, path):

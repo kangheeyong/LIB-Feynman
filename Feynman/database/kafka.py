@@ -28,7 +28,7 @@ class Kafka_queue_consumer():
                 continue
             datatime = data.timestamp
             result.append({'value': v, 'datatime': datatime})
-        self.logger.info('Get {} data... from {}'.format(len(result), self._opt.topick))
+        self.logger.info('Get {} data... from [{}]'.format(len(result), self._opt.topic))
         return result
 
 
@@ -44,4 +44,4 @@ class Kafka_queue_producer():
         data = [data] if isinstance(data, dict) else data
         for d in data:
             self._kp.send(self._topic, d)
-        self.logger.info('send {} data... to {}'.format(len(data), self._opt.topic))
+        self.logger.info('send {} data... to [{}]'.format(len(data), self._opt.topic))

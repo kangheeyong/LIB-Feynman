@@ -39,3 +39,6 @@ class Mongodb():
 
     def find(self, data):
         return self._collection.find(data)
+
+    def count_documents(self, data):
+        return self._collection.count_documents(data)

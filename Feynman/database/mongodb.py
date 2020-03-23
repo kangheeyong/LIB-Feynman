@@ -28,6 +28,8 @@ class Mongodb():
                 self.logger.info('TTL time change from {}s to {}s'.format(dic['ttl_1']['expireAfterSeconds'], self._opt.ttl_t))
 
     def insert(self, data):
+        if not data:
+            return
         data = [data] if isinstance(data, dict) else data
         ttl = datetime.datetime.utcnow()
         for datum in data:

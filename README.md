@@ -3,7 +3,7 @@
 ## 요약
 - 개인용 library
 - acyncio를 활용함
-- micro server architecture의 파이프라인을 위한 google drive, Kafka, MongoDB 사용
+- micro service architecture의 파이프라인을 위한 google drive, Kafka, MongoDB 사용
 
 ## 개발 환경
 - Ubuntu 16.04.6 LTS

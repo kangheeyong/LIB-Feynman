@@ -37,7 +37,7 @@ class Mongodb():
         self._collection.insert_many(data)
         self.logger.info('Insert into [{}/{}/{}] -> {} data...'.format(self._opt.server, self._opt.database, self._opt.collection, len(data)))
 
-    def find(self, data):
+    def find(self, data={}):
         return self._collection.find(data)
 
     def count_documents(self, data):

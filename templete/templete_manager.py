@@ -15,19 +15,21 @@ class templete_manager():
         self.logger.info('Start task...')
         while True:
             begin_t = time.time()
+
             print('tesk test')
+
             sleep_t = max(0, 60 - int(time.time() - begin_t))
             self.logger.info('Sleep {} secs before next start'.format(sleep_t))
             await asyncio.sleep(sleep_t)
 
-    async def _consumer(self, websocket, path):
-        self.logger.info('Start consumer... at {}:{}{}'.format(websocket.host, websocket.port, path))
-        name = await websocket.recv()
+    async def _consumer(self, ws, path):
+        self.logger.info('Start consumer... at {}:{}{}'.format(ws.host, ws.port, path))
+        name = await ws.recv()
 
         print('< {}'.format(name))
         greeting = 'Hello {}!'.format(name)
 
-        await websocket.send(greeting)
+        await ws.send(greeting)
         print('> {}'.format(greeting))
 
     async def _main(self):

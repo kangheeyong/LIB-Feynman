@@ -7,7 +7,7 @@ from fire import Fire
 from Feynman.etc.util import get_logger
 
 
-class templete_manager():
+class template_manager():
     def __init__(self):
         self.logger = get_logger()
 
@@ -22,19 +22,17 @@ class templete_manager():
             self.logger.info('Sleep {} secs before next start'.format(sleep_t))
             await asyncio.sleep(sleep_t)
 
-    async def _consumer(self, ws, path):
+    async def _cmd_recv(self, ws, path):
         self.logger.info('Start consumer... at {}:{}{}'.format(ws.host, ws.port, path))
         name = await ws.recv()
-
         print('< {}'.format(name))
         greeting = 'Hello {}!'.format(name)
-
         await ws.send(greeting)
         print('> {}'.format(greeting))
 
     async def _main(self):
         coroutine_list = []
-        coroutine_list.append(websockets.serve(self._consumer, '0.0.0.0', 8765))
+        coroutine_list.append(websockets.serve(self._cmd_recv, '0.0.0.0', 8765))
         coroutine_list.append(self._task())
         await asyncio.gather(*coroutine_list)
 
@@ -43,4 +41,4 @@ class templete_manager():
 
 
 if __name__ == '__main__':
-    Fire(templete_manager)
+    Fire(template_manager)

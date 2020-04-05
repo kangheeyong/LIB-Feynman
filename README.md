@@ -4,6 +4,7 @@
 - 개인용 library
 - acyncio를 활용함
 - micro service architecture의 파이프라인을 위한 google drive, Kafka, MongoDB 사용
+- 자주 사용할 법한 templete 구조 정리
 
 ## 개발 환경
 - Ubuntu 16.04.6 LTS

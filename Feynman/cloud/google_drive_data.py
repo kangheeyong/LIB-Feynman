@@ -41,7 +41,7 @@ class Google_drive_data_base():
                 dic[child] = d
         return dic
 
-    def pruning_overlap_file(self, max_size=1):
+    def pruning_overlap_file(self, max_size=3):
         for parent, children in bfs(self.adj_dic, self.root):
             qu = defaultdict(list)
             if not children:

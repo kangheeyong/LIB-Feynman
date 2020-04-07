@@ -4,7 +4,7 @@ import fcntl
 
 import asyncio
 
-from .util import get_logger
+from Feynman.etc.util import get_logger
 
 
 class Try_sync_access:

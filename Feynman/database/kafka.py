@@ -3,7 +3,7 @@ from collections import defaultdict
 
 from kafka import KafkaProducer, KafkaConsumer
 
-from ..etc.util import get_logger
+from Feynman.etc.util import get_logger
 
 
 class Kafka_queue_consumer():

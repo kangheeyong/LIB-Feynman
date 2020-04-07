@@ -14,7 +14,7 @@ class Google_drive_data_base():
         self.adj_dic = self._make_adj_dic()
         self.data_dic = self._make_dic()
         self.view_dic = defaultdict(list)
-        self.remove_set = set()
+        self.remove_list = list()
 
     def _make_edge_list(self):
         EdgeList = namedtuple('listuple', 'child parent')
@@ -51,7 +51,7 @@ class Google_drive_data_base():
             for filename in qu.keys():
                 qu[filename].sort(key=lambda x: self.data_dic[x]['createdTime'], reverse=True)
             for filename in qu.keys():
-                self.remove_set.update(qu[filename][max_size:])
+                self.remove_list += qu[filename][max_size:]
                 self.view_dic[parent] += qu[filename][:max_size]
 
     def pruning_zombie_file(self):
@@ -63,4 +63,4 @@ class Google_drive_data_base():
                 self.all_dic[get_parent(dic, child)].append(child)
         for root in self.all_dic.keys():
             if root != self.root:
-                self.remove_set.update(self.all_dic[root])
+                self.remove_list += self.all_dic[root]

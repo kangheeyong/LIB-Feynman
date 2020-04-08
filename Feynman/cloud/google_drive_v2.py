@@ -97,6 +97,12 @@ class Google_drive():
         data = self.service.files().list(fields='*').execute()['files']
         self._file_data = Google_drive_data(data)
 
+    def remove(self, arg):
+        if arg in self._file_data.data_dic:
+            self.service.files().delete(fileId=arg).execute()
+            return 'Clear'
+        return 'There is no file'
+
     def empty_list(self, arg=None):
         if not self._file_data.remove_list:
             self.logger.info('there is no file')

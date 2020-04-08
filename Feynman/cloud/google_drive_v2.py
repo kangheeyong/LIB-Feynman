@@ -58,7 +58,7 @@ class Google_drive_data():
                 dic[child] = d
         return dic
 
-    def _pruning_overlap_file(self, max_size=3):
+    def _pruning_overlap_file(self, max_size):
         for parent, children in bfs(self.adj_dic, self.root):
             qu = defaultdict(list)
             if not children:
@@ -99,9 +99,14 @@ class Google_drive():
                     self.logger.info('Connection reset by peer...')
                     time.sleep(60)
 
-    def get_list(self):
-        result = self.service.files().list(fields='*').execute()['files']
-        time.sleep(.1)
-        return result
+    def update_list(self):
+        data = self.service.files().list(fields='*').execute()['files']
+        self._file_data = Google_drive_data(data)
 
-
+    def empty_list(self, arg):
+        if not self._file_data.remove_list:
+            return 'There is no file'
+        for _id in self._file_data.remove_list:
+            self.service.files().delete(fileId=_id).execute()
+            self.logger.info('Delete old file : {}'.format(_id))
+        return 'Clear'

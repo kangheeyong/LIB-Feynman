@@ -1,16 +1,10 @@
-import io
-import os
 import time
-import json
 import errno
 from collections import defaultdict, namedtuple
 from socket import error as SocketError
 
 from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
-from googleapiclient.http import MediaIoBaseDownload
 
-from Feynman.etc import Try_sync_access
 from Feynman.etc.util import get_logger
 from Feynman.serialize import Pickle_serializer
 from Feynman.algorithms.graph.bfs import bfs
@@ -103,8 +97,9 @@ class Google_drive():
         data = self.service.files().list(fields='*').execute()['files']
         self._file_data = Google_drive_data(data)
 
-    def empty_list(self, arg):
+    def empty_list(self, arg=None):
         if not self._file_data.remove_list:
+            self.logger.info('there is no file')
             return 'There is no file'
         for _id in self._file_data.remove_list:
             self.service.files().delete(fileId=_id).execute()

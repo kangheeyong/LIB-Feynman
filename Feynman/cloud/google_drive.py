@@ -66,13 +66,13 @@ class Google_drive():
             time.sleep(.1)
             self.logger.info('Upload new filee : {}({})/{}({})'.format(folder, folder_id, name, r['id']))
 
-            name_list = [dic for dic in rlist if name in dic['name']]
-            if len(name_list) > max_data - 1:
-                del_list = sorted(name_list, key=lambda x: x['createdTime'])[:-(max_data - 1)]
-                for dic in del_list:
-                    self.service.files().delete(fileId=dic['id']).execute()
-                    self.logger.info('Delete old file : {}({})/{}({})'.format(folder, folder_id, name, dic['id']))
-                    time.sleep(.1)
+            # name_list = [dic for dic in rlist if name in dic['name']]
+            # if len(name_list) > max_data - 1:
+            #     del_list = sorted(name_list, key=lambda x: x['createdTime'])[:-(max_data - 1)]
+            #     for dic in del_list:
+            #         self.service.files().delete(fileId=dic['id']).execute()
+            #         self.logger.info('Delete old file : {}({})/{}({})'.format(folder, folder_id, name, dic['id']))
+            #         time.sleep(.1)
 
     def upload(self, folder, files, max_data=3):
         while True:

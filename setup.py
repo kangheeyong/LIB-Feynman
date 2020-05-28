@@ -15,4 +15,4 @@ setup(name='LIB-Feynman',
       long_description=README,
       url='https://github.com/kangheeyong/LIB-Feynman.git',
       author='khy',
-      author_email='cagojeiger@naver.com',
+      author_email='cagojeiger@naver.com')

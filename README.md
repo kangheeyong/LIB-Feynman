@@ -14,5 +14,5 @@
 - MongoDB 4.2.3([링크](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#))
 
 ## 설치
-`ln -s <lib-path> /usr/local/lib/python3.7/Feynman`
+`pip3 install git+ /usr/local/lib/python3.7/Feynman`
 

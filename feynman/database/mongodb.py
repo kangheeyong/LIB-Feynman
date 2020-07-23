@@ -2,7 +2,7 @@ import datetime
 
 from pymongo import MongoClient
 
-from Feynman.etc.util import get_logger
+from feynman.etc.util import get_logger
 
 
 class Mongodb():

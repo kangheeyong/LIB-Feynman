@@ -1,7 +1,7 @@
 import _pickle
 
-from Feynman.etc import Try_sync_access
-from Feynman.etc.util import get_logger
+from feynman.etc import Try_sync_access
+from feynman.etc.util import get_logger
 
 
 class Pickle_serializer():

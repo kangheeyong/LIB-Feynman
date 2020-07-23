@@ -1,6 +1,6 @@
 from collections import defaultdict
 
-from Feynman.algorithms.tree.print_tree import print_tree
+from feynman.algorithms.tree.print_tree import print_tree
 
 def get_parent(dic, x):
     if x not in dic:

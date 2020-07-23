@@ -10,9 +10,9 @@ from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from googleapiclient.http import MediaIoBaseDownload
 
-from Feynman.etc import Try_sync_access
-from Feynman.etc.util import get_logger
-from Feynman.serialize import Pickle_serializer
+from feynman.etc import Try_sync_access
+from feynman.etc.util import get_logger
+from feynman.serialize import Pickle_serializer
 
 
 class Google_drive():

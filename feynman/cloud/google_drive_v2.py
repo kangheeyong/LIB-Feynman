@@ -5,10 +5,10 @@ from socket import error as SocketError
 
 from googleapiclient.discovery import build
 
-from Feynman.etc.util import get_logger
-from Feynman.serialize import Pickle_serializer
-from Feynman.algorithms.graph.bfs import bfs
-from Feynman.algorithms.disjoint.union_find import get_parent, union_parent
+from feynman.etc.util import get_logger
+from feynman.serialize import Pickle_serializer
+from feynman.algorithms.graph.bfs import bfs
+from feynman.algorithms.disjoint.union_find import get_parent, union_parent
 
 
 class Google_drive_data():

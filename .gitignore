@@ -2,3 +2,4 @@
 *.swp
 *.so
 *.pyc
+.DS_Store

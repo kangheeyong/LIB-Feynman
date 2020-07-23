@@ -12,7 +12,6 @@
 - google drive api v3([링크](https://developers.google.com/drive/api/v3/quickstart/python))
 - Kafka 2.4.1([링크](https://kafka.apache.org/quickstart))
 - MongoDB 4.2.3([링크](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#))
-
-## 설치
-`pip3 install git+https://github.com/kangheeyong/LIB-Feynman.git`
-
+## 설치 & 제거
+- 설치 : `pip3 install git+https://github.com/kangheeyong/LIB-Feynman.git`
+- 제거 : `pip3 uninstall feynman`p

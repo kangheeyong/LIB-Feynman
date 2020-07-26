@@ -12,6 +12,11 @@
 - google drive api v3([링크](https://developers.google.com/drive/api/v3/quickstart/python))
 - Kafka 2.4.1([링크](https://kafka.apache.org/quickstart))
 - MongoDB 4.2.3([링크](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#))
+- keras kobert model 추가
+
+## 진행사항
+- nlu 모델 관련 개인용 라이브러리로 바꾸는 중
+
 ## 설치 & 제거
 - 설치 : `pip3 install git+https://github.com/kangheeyong/LIB-Feynman.git`
 - 제거 : `pip3 uninstall feynman`p

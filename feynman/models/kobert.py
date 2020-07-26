@@ -262,7 +262,7 @@ def convert_data(data_df, SEQ_LEN = 128, DATA_COLUMN = "text", LABEL_COLUMN = "l
     tokens, masks, segments, targets = [], [], [], []
     
     for i in tqdm(range(len(data_df))):
-        token = tokenizer.encode(data_df[DATA_COLUMN].values[i], truncation=True, max_length=SEQ_LEN, pad_to_max_length=True)  
+        token = tokenizer.encode(data_df[DATA_COLUMN].values[i], truncation=True, max_length=SEQ_LEN, padding='max_length')  
         num_zeros = token.count(0)
         mask = [1]*(SEQ_LEN-num_zeros) + [0]*num_zeros
         segment = [0]*SEQ_LEN

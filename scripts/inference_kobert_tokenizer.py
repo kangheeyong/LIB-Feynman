@@ -5,10 +5,9 @@ import pandas as pd
 from feynman.models.kobert import convert_data
 
 
-
 if __name__ == '__main__':
     argv = sys.argv
-    
+
     if len(argv) != 2:
         print(
             "Usage: python inference_kobert_tokenizker.py '[korean test]'")

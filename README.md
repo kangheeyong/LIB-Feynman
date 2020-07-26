@@ -18,5 +18,5 @@
 - nlu 모델 관련 개인용 라이브러리로 바꾸는 중
 
 ## 설치 & 제거
-- 설치 : `pip3 install git+https://github.com/kangheeyong/LIB-Feynman.git`
-- 제거 : `pip3 uninstall feynman`p
+- 설치 : `pip3 install git+https://github.com/kangheeyong/LIB-Feynman.git@dev`
+- 제거 : `pip3 uninstall feynman`

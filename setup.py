@@ -16,4 +16,11 @@ setup(name='Feynman',
       packages=find_packages(),
       exclude=['scripts', 'tests'],
       author='khy',
-      author_email='cagojeiger@naver.com')
+      author_email='cagojeiger@naver.com',
+      install_requires=[
+          "tensorflow >= 2.0.0",
+          "transformers",
+          "tqdm",
+          "pandas",
+          "numpy"]
+    )

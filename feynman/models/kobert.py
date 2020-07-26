@@ -279,7 +279,7 @@ def convert_data(data_df, SEQ_LEN = 128, DATA_COLUMN = "text", LABEL_COLUMN = "l
     return [tokens, masks, segments], targets
 
 
-def load_data(pandas_dataframe, nb_classes = 4):
+def load_data(pandas_dataframe, nb_classes, DATA_COLUMN = "text", LABEL_COLUMN = "label"):
     data_df = pandas_dataframe
     data_df[DATA_COLUMN] = data_df[DATA_COLUMN].astype(str)
     data_df[LABEL_COLUMN] = data_df[LABEL_COLUMN].astype(int)

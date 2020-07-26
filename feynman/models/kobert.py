@@ -256,13 +256,13 @@ class KoBertTokenizer(PreTrainedTokenizer):
 tokenizer = KoBertTokenizer.from_pretrained('monologg/kobert')
 
 
-def convert_data(data_df, SEQ_LEN = 128, DATA_COLUMN = "text", LABEL_COLUMN = "label"):
+def convert_data(data_df, SEQ_LEN=128, DATA_COLUMN="text", LABEL_COLUMN="label"):
     global tokenizer
-    
+
     tokens, masks, segments, targets = [], [], [], []
-    
+
     for i in tqdm(range(len(data_df))):
-        token = tokenizer.encode(data_df[DATA_COLUMN].values[i], truncation=True, max_length=SEQ_LEN, padding='max_length')  
+        token = tokenizer.encode(data_df[DATA_COLUMN].values[i], truncation=True, max_length=SEQ_LEN, padding='max_length')
         num_zeros = token.count(0)
         mask = [1]*(SEQ_LEN-num_zeros) + [0]*num_zeros
         segment = [0]*SEQ_LEN
@@ -279,11 +279,11 @@ def convert_data(data_df, SEQ_LEN = 128, DATA_COLUMN = "text", LABEL_COLUMN = "l
     return [tokens, masks, segments], targets
 
 
-def load_data(pandas_dataframe, nb_classes, DATA_COLUMN = "text", LABEL_COLUMN = "label"):
+def load_data(pandas_dataframe, nb_classes, SEQ_LEN=128, DATA_COLUMN="text", LABEL_COLUMN="label"):
     data_df = pandas_dataframe
     data_df[DATA_COLUMN] = data_df[DATA_COLUMN].astype(str)
     data_df[LABEL_COLUMN] = data_df[LABEL_COLUMN].astype(int)
-    data_x, data_y = convert_data(data_df)
+    data_x, data_y = convert_data(data_df, SEQ_LEN, DATA_COLUMN, LABEL_COLUMN)
 
     nb_classes = 4
     targets = np.array([data_y]).reshape(-1)
